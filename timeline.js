@@ -5,7 +5,7 @@ var map = L.map('map', {
 
 L.tileLayer('Leaflet_Tiles/{z}/{x}/{y}.png', {
     maxZoom: 7,
-    minZoom: 3,
+    minZoom: 2,
     maxNativeZoom: 6,
     zoomSnap: 0.2,
     mapMaxResolution: 2,
