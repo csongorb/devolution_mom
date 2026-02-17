@@ -21,6 +21,16 @@
     </head>
     <body>
 
+        <div id="commit-sidebar" class="collapsed">
+            <div class="commit-sidebar-header">
+                Commit Message
+                <span class="commit-sidebar-close" onclick="closeCommitSidebar()">
+                    <i class="fa fa-caret-left"></i>
+                </span>
+            </div>
+            <iframe class="sidebar-content" src="https://devolution.online/commit-message/"></iframe>
+        </div>
+
         <div id="sidebar" class="leaflet-sidebar collapsed">
             <!-- Sidebar tabs -->
             <div class="leaflet-sidebar-tabs">
@@ -92,5 +102,6 @@
         <!-- <script src="layers.js"></script> -->
         <script src="sidebar.js"></script>
         <script src="externalLinks.js"></script>
+        <script src="commitSidebar.js"></script>
     </body>
 </html>
