@@ -39,7 +39,6 @@
                     <li><a href="#devolution" role="tab"><i class="fa-solid fa-seedling"></i></a></li>
                     <li><a href="#game" role="tab"><i class="fa-solid fa-magnet"></i></a></li>
                     <li><a href="#versions" role="tab"><i class="fa-solid fa-gamepad"></i></a></li>
-                    <li><a href="#exhibition" role="tab"><i class="fa-solid fa-landmark"></i></a></li>
                 </ul>
 
                 <ul role="tablist">
@@ -66,25 +65,19 @@
 
                     <h1 class="leaflet-sidebar-header">Mind Over Magnets<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
 
-                    <iframe class= "sidebar-content" src= "https://devolution.online/pages/sidebar-lmd-intro/"></iframe>
+                    <iframe class= "sidebar-content" src= "https://devolution.online/sidebar-mind-over-magnets/sidebar-mom-intro/"></iframe>
                 </div>
 
                 <div class="leaflet-sidebar-pane" id="versions">
                     <h1 class="leaflet-sidebar-header">Playable Versions<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
 
-                    <iframe class= "sidebar-content" src= "https://devolution.online/pages/sidebar-lmd-playable-versions/"></iframe>
-                </div>
-
-                <div class="leaflet-sidebar-pane" id="exhibition">
-                    <h1 class="leaflet-sidebar-header">Exhibition<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-
-                    <iframe class= "sidebar-content" src= "https://devolution.online/pages/sidebar-lmd-amaze/"></iframe>
+                    <iframe class= "sidebar-content" src= "https://devolution.online/sidebar-mind-over-magnets/sidebar-mom-playable-versions/"></iframe>
                 </div>
 
                 <div class="leaflet-sidebar-pane" id="credits">
                     <h1 class="leaflet-sidebar-header">Credits<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
 
-                    <iframe class= "sidebar-content" src= "https://devolution.online/pages/sidebar-lmd-credits/"></iframe>
+                    <iframe class= "sidebar-content" src= "https://devolution.online/sidebar-mind-over-magnets/sidebar-mom-credits/"></iframe>
                 </div>
             </div>
         </div>
@@ -103,5 +96,32 @@
         <script src="sidebar.js"></script>
         <script src="externalLinks.js"></script>
         <script src="commitSidebar.js"></script>
+        <script src="timelineMarker.js"></script>
+
+        <!--Cookies consent issue fixer-->
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("load", (event) => {
+    const frame = event.target;
+
+    if (!frame || frame.tagName !== "IFRAME") return;
+
+    if (frame.dataset.selfReload === "true") {
+      frame.dataset.selfReload = "false";
+      return;
+    }
+
+    const allFrames = document.querySelectorAll("iframe");
+    allFrames.forEach((other) => {
+      if (other !== frame) {
+        other.dataset.selfReload = "true";
+        other.src = other.src;
+      }
+    });
+  }, true);
+});
+</script>
+    <!--Cookies consent issue fixer-->
+
     </body>
 </html>
