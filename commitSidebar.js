@@ -1,64 +1,53 @@
-// Store original map center for autopan feature
-var originalMapCenter = null;
+function openCommitPane() {
+    if (typeof sidebar !== 'undefined') {
+        try {
+            sidebar.open('commit');
+        } catch (error) {
+            console.error('Error opening commit pane:', error.message);
+            // Fallback: try to open by triggering the tab directly
+            var commitTab = document.querySelector('a[href="#commit"]');
+            if (commitTab) {
+                commitTab.parentElement.click();
+            }
+        }
+    } else {
+        console.error('sidebar object not defined');
+    }
+}
 
-// Open the commit sidebar with animation
-function openCommitSidebar() {
-    const commitSidebar = document.getElementById('commit-sidebar');
-    commitSidebar.classList.remove('collapsed');
-    document.getElementById('sidebar').style.display = 'none';
-    
-    // Autopan feature: pan the map to adjust for the sidebar
-    if (typeof map !== 'undefined') {
-        // Check if the Leaflet sidebar is currently open
-        const leafletSidebar = document.getElementById('sidebar');
-        const isLeafletSidebarOpen = leafletSidebar && !leafletSidebar.classList.contains('collapsed');
-
-        originalMapCenter = map.getCenter();
-        
-        // Only pan if the Leaflet sidebar is NOT open
-        // If it IS open, the map is already shifted, so we just capture that state
-        // and avoid double-shifting (which would push the map too far).
-        if (!isLeafletSidebarOpen) {
-            const sidebarWidth = commitSidebar.offsetWidth || 265; // Default to 265px if not available
-            const mapContainer = map.getContainer();
-            const mapWidth = mapContainer.offsetWidth;
-            
-            // Calculate the offset to pan the map
-            // Pan left by half the sidebar width to shift content right
-            const panOffset = sidebarWidth / 2;
-            const centerPoint = map.project(originalMapCenter);
-            // Pan LEFT (negative X) to shift map content RIGHT
-            centerPoint.x -= panOffset;
-            const newCenter = map.unproject(centerPoint);
-            
-            map.panTo(newCenter, { animate: true, duration: 0.5 });
+function closeCommitPane() {
+    if (typeof sidebar !== 'undefined') {
+        sidebar.close();
+        // Remove the commit-active class to show sidebar tabs again
+        var sidebarEl = document.getElementById('sidebar');
+        if (sidebarEl) {
+            sidebarEl.classList.remove('commit-active');
         }
     }
 }
 
-// Close the commit sidebar with animation
-function closeCommitSidebar() {
-    const commitSidebar = document.getElementById('commit-sidebar');
-    commitSidebar.classList.add('collapsed');
-    document.getElementById('sidebar').style.display = 'block';
+// Listen to sidebar pane changes - handle when visiting different panes
+if (typeof sidebar !== 'undefined' && sidebar.on) {
+    sidebar.on('content', function(e) {
+        var sidebarEl = document.getElementById('sidebar');
+        if (!sidebarEl) return;
+        
+        if (e.id === 'commit') {
+            // Add class to hide sidebar tabs when commit pane is active
+            sidebarEl.classList.add('commit-active');
+        } else {
+            // Remove class to show sidebar tabs for other panes
+            sidebarEl.classList.remove('commit-active');
+        }
+    });
     
-    // Autopan feature: restore the original map center when closing
-    if (typeof map !== 'undefined' && originalMapCenter) {
-        map.panTo(originalMapCenter, { animate: true, duration: 0.5 });
-        originalMapCenter = null;
-    }
-}
-
-// Toggle the commit sidebar
-function toggleCommitSidebar() {
-    const commitSidebar = document.getElementById('commit-sidebar');
-    const isCollapsed = commitSidebar.classList.contains('collapsed');
-    
-    if (isCollapsed) {
-        openCommitSidebar();
-    } else {
-        closeCommitSidebar();
-    }
+    // Handle when sidebar is closed by clicking the close button
+    sidebar.on('closing', function() {
+        var sidebarEl = document.getElementById('sidebar');
+        if (sidebarEl) {
+            sidebarEl.classList.remove('commit-active');
+        }
+    });
 }
 
 // Navigate map to specific coordinates and zoom level
@@ -68,11 +57,11 @@ function navigateToMapPosition(lat, lng, zoom) {
             animate: true,
             duration: 1.0
         });
-        
-        // Optionally close the commit sidebar after navigation
-        // Uncomment the line below if you want the sidebar to auto-close after navigation
-        //setTimeout(() => closeCommitSidebar(), 500);
-        if (window.innerWidth < 768) closeCommitSidebar(); // Auto-close sidebar on mobile after navigation
+
+        // Auto-close sidebar on mobile after navigation
+        if (window.innerWidth < 768) {
+            closeCommitPane();
+        }
     } else {
         console.error('Map object not found');
     }
@@ -97,38 +86,25 @@ window.addEventListener('message', function(event) {
         }
     }
     
-    // Handle close sidebar message
     if (event.data && event.data.type === 'closeSidebar') {
-        closeCommitSidebar();
+        closeCommitPane();
     }
 });
 
-// Optional: Close sidebar when clicking outside of it
-document.addEventListener('click', function(event) {
-    const commitSidebar = document.getElementById('commit-sidebar');
-    // Basic check if the elements exist
-    if (!commitSidebar) return;
-    
-    // Check if the sidebar is currently open
-    const isCollapsed = commitSidebar.classList.contains('collapsed');
-    if (isCollapsed) return; // If it's already closed, do nothing in this listener
-
-    const isClickInside = commitSidebar.contains(event.target);
-    
-    // If click is outside, close it.
-    if (!isClickInside) {
-        closeCommitSidebar();
-    }
-});
-
-// Add a clickable area on the map where the commit is located (it will open the commit sidebar when clicked)
+// Add a clickable area on the map where the commit is located.
 var southWestCord = L.latLng(-42190.42, 15360.00);
 var northEatCord = L.latLng(-41165.86, 43008.00);
 var linkBounds = [southWestCord, northEatCord];
 var rectangle = L.rectangle(linkBounds, {
-    color: "#66000000"
-}).addTo(map).on('click', function(e){
-    // Stop the click from propagating to the document so it doesn't immediately trigger the close listener
-    L.DomEvent.stopPropagation(e.originalEvent || e); 
-    openCommitSidebar();
+    color: "#ff6600",           // Orange border
+    weight: 2,                   // Visible border width
+    fillColor: "#ff6600",        // Fill color
+    fillOpacity: 0,            // Semi-transparent fill
+    opacity: 0,                // Semi-transparent border
+    interactive: true,
+    className: 'commit-rectangle'
+}).addTo(map).on('click', function(e) {
+    // Prevent map click handlers from immediately closing the sidebar again.
+    L.DomEvent.stopPropagation(e);
+    openCommitPane();
 });

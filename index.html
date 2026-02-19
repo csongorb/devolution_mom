@@ -21,16 +21,6 @@
     </head>
     <body>
 
-        <div id="commit-sidebar" class="collapsed">
-            <div class="commit-sidebar-header">
-                Commit Message
-                <span class="commit-sidebar-close" onclick="closeCommitSidebar()">
-                    <i class="fa fa-caret-left"></i>
-                </span>
-            </div>
-            <iframe class="sidebar-content" src="https://devolution.online/commit-message/"></iframe>
-        </div>
-
         <div id="sidebar" class="leaflet-sidebar collapsed">
             <!-- Sidebar tabs -->
             <div class="leaflet-sidebar-tabs">
@@ -39,6 +29,7 @@
                     <li><a href="#devolution" role="tab"><i class="fa-solid fa-seedling"></i></a></li>
                     <li><a href="#game" role="tab"><i class="fa-solid fa-magnet"></i></a></li>
                     <li><a href="#versions" role="tab"><i class="fa-solid fa-gamepad"></i></a></li>
+                    <li id="commit-tab" class="hidden-tab"><a href="#commit" role="tab"><i class="fa-solid fa-circle"></i></a></li>
                 </ul>
 
                 <ul role="tablist">
@@ -78,6 +69,12 @@
                     <h1 class="leaflet-sidebar-header">Credits<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
 
                     <iframe class= "sidebar-content" src= "https://devolution.online/sidebar-mind-over-magnets/sidebar-mom-credits/"></iframe>
+                </div>
+
+                <div class="leaflet-sidebar-pane" id="commit">
+                    <h1 class="leaflet-sidebar-header">Commit Message<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+
+                    <iframe class="sidebar-content" src="https://devolution.online/commit-message/"></iframe>
                 </div>
             </div>
         </div>
