@@ -46,8 +46,6 @@ iframe.sidebar-content{
 /* Move entire sidebar container to the left when commit pane is active */
 .leaflet-sidebar.commit-active {
     transform: translateX(-42px);
-    /* Add border radius to left side as well when detached from tabs */
-    border-radius: 8px !important; 
 }
 
 /* Move sidebar tabs further left to hide them completely */
@@ -72,15 +70,10 @@ iframe.sidebar-content{
     transition: transform 0.2s ease;
 }
 
-/* Add border radius on all sides for commit pane */
-.leaflet-sidebar.commit-active {
+/* Apply border radius to the CONTENT element (not the container) so the left radius is visible */
+.leaflet-sidebar.commit-active .leaflet-sidebar-content {
     border-radius: 8px !important;
-}
-
-@media (min-width: 768px) {
-    .leaflet-sidebar.commit-active {
-        border-radius: 8px !important;
-    }
+    overflow: hidden;
 }
 
 /* On mobile devices, don't transform the sidebar - keep it fullscreen */
@@ -97,13 +90,10 @@ iframe.sidebar-content{
     .leaflet-sidebar.commit-active .leaflet-sidebar-content {
         transform: translateX(0) !important;
         left: 0 !important;
+        border-radius: 0 !important;
     }
     
     .leaflet-sidebar.commit-active ~ .leaflet-control-container .leaflet-left {
         transform: translateX(0) !important;
-    }
-    
-    .leaflet-sidebar.commit-active {
-        border-radius: 0 !important;
     }
 }
