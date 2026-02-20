@@ -5,7 +5,7 @@ var customIcon = L.icon({
     popupAnchor: [0, -30]
 });
 
-var marker1 = L.marker([-41206.07, 21875.19], {icon: customIcon})
+var marker1 = L.marker([-44121.31, 21760.94], {icon: customIcon})
 .bindPopup(`<div align="center">
               <big><b>First Version</b></big><br />
               <img src="images/demo.png" width="150" alt="demo"></img><br />
@@ -14,7 +14,7 @@ var marker1 = L.marker([-41206.07, 21875.19], {icon: customIcon})
               <small><a onclick="sidebar.open('versions')" href="#">Disclaimer & more</a></small>
             </div>`);
 
-var marker2 = L.marker([-41206.07, 28372.98], {icon: customIcon})
+var marker2 = L.marker([-44121.31, 28247.62], {icon: customIcon})
 .bindPopup(`<div align="center">
               <big><b>Second Version</b></big><br />
               <img src="images/demo.png" width="150" alt="demo"></img><br />

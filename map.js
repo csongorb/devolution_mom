@@ -9,7 +9,7 @@ const map = L.map("map", {
       maxZoom: 1,
       //maxBounds: bounds,
       zoomSnap: 0.2
-    }).setView([-38596.56, 68272.00], -7);
+    }).setView([-38596.56, 79022.00], -7.3);
 
     //map.fitBounds(bounds);
 
@@ -34,7 +34,7 @@ map.on('click', function() {
 } );
 
 // Add a control to display the mouse position (for debugging purposes)
-// L.control.mousePosition().addTo(map);
+L.control.mousePosition().addTo(map);
 
 
 // // Copy the coordinates of a clicked point to the clipboard (for debugging purposes)
