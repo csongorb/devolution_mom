@@ -37,13 +37,13 @@ map.on('click', function() {
 L.control.mousePosition().addTo(map);
 
 
-// // Copy the coordinates of a clicked point to the clipboard (for debugging purposes)
+// Copy the coordinates of a clicked point to the clipboard (for debugging purposes)
 //  map.on('click', async (e) => {
 //     const x = e.latlng.lng;
 //     const y = e.latlng.lat;
 //     const zoom = map.getZoom();
 
-//     const text = `Lat: ${y.toFixed(2)}, Lng: ${x.toFixed(2)}, Zoom: ${zoom}`;
+//     const text = `${y.toFixed(2)}, ${x.toFixed(2)}`;
 
 //     try {
 //       await navigator.clipboard.writeText(text);
