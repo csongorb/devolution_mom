@@ -1,5 +1,5 @@
-const mapWidth = 152144;
-const mapHeight = 80144;
+const mapWidth = 158144;
+const mapHeight = 113144;
 
 const bounds = [[-mapHeight, 0], [0, mapWidth]];
 
@@ -34,7 +34,7 @@ map.on('click', function() {
 } );
 
 // Add a control to display the mouse position (for debugging purposes)
-// L.control.mousePosition().addTo(map);
+L.control.mousePosition().addTo(map);
 
 
 // Copy the coordinates of a clicked point to the clipboard (for debugging purposes)
