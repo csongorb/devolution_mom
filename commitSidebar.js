@@ -92,8 +92,8 @@ window.addEventListener('message', function(event) {
 });
 
 // Add a clickable area on the map where the commit is located.
-var southWestCord = L.latLng(-47212.76, 15342.58);
-var northEatCord = L.latLng(-42600.50, 131042.24);
+var southWestCord = L.latLng(-63641.10, 15399.68);
+var northEatCord = L.latLng(-59655.81, 151040.00);
 var linkBounds = [southWestCord, northEatCord];
 var rectangle = L.rectangle(linkBounds, {
     color: "#ff6600",           // Orange border

@@ -9,7 +9,7 @@ const map = L.map("map", {
       maxZoom: 1,
       //maxBounds: bounds,
       zoomSnap: 0.2
-    }).setView([-38596.56, 79022.00], -7.3);
+    }).setView([-51596.56, 81022.00], -7.3);
 
     //map.fitBounds(bounds);
 
@@ -38,23 +38,23 @@ L.control.mousePosition().addTo(map);
 
 
 // Copy the coordinates of a clicked point to the clipboard (for debugging purposes)
-//  map.on('click', async (e) => {
-//     const x = e.latlng.lng;
-//     const y = e.latlng.lat;
-//     const zoom = map.getZoom();
+ map.on('click', async (e) => {
+    const x = e.latlng.lng;
+    const y = e.latlng.lat;
+    const zoom = map.getZoom();
 
-//     const text = `${y.toFixed(2)}, ${x.toFixed(2)}`;
+    const text = `${y.toFixed(2)}, ${x.toFixed(2)}`;
 
-//     try {
-//       await navigator.clipboard.writeText(text);
-//       console.log('Coordinates copied to clipboard:', text);
-//     } catch {
-//       const ta = document.createElement('textarea');
-//       ta.value = text;
-//       document.body.appendChild(ta);
-//       ta.select();
-//       document.execCommand('copy');
-//       document.body.removeChild(ta);
-//       console.log('Coordinates copied (fallback):', text);
-//     }
-//   });
+    try {
+      await navigator.clipboard.writeText(text);
+      console.log('Coordinates copied to clipboard:', text);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      console.log('Coordinates copied (fallback):', text);
+    }
+  });
